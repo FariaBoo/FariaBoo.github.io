@@ -1,27 +1,304 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>FariaBoo's Hub</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>su! — profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --red:#c0392b;--red-light:#e8a09a;--red-dim:rgba(192,57,43,0.1);
+  --red-border:rgba(192,57,43,0.22);--pink:#f2c4c0;
+  --bg:#faf7f6;--bg2:#ffffff;--bg3:#f4efee;
+  --text:#1a1010;--muted:#7a5c5a;--border:rgba(0,0,0,0.07);
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Space Grotesk',sans-serif;
+  min-height:100vh;display:flex;align-items:flex-start;
+  justify-content:center;padding:2rem 1rem 4rem;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:radial-gradient(circle,rgba(192,57,43,0.06) 1px,transparent 1px);
+  background-size:20px 20px;pointer-events:none;z-index:0;
+}
+.card{
+  position:relative;z-index:1;background:var(--bg2);
+  border:1px solid var(--border);border-radius:20px;
+  width:100%;max-width:460px;overflow:hidden;
+  box-shadow:0 4px 32px rgba(192,57,43,0.08);
+  animation:fadeUp 0.5s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* BANNER */
+.banner{
+  height:108px;
+  background:linear-gradient(135deg,#b03020 0%,#d96060 50%,#f2c4c0 100%);
+  position:relative;overflow:hidden;
+}
+.banner::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='64'%3E%3Cpolygon points='28,2 54,16 54,48 28,62 2,48 2,16' fill='none' stroke='rgba(255,255,255,0.13)' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-size:56px 64px;
+}
+.level-badge{
+  position:absolute;top:10px;right:12px;
+  background:rgba(0,0,0,0.3);color:#fff;
+  font-family:'Space Mono',monospace;font-size:0.62rem;font-weight:700;
+  letter-spacing:1px;padding:4px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,0.18);
+}
+.xp-wrap{position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(255,255,255,0.18);}
+.xp-fill{height:100%;width:72%;background:#fff;border-radius:0 2px 2px 0;animation:xp 1.3s cubic-bezier(.4,0,.2,1) both;}
+@keyframes xp{from{width:0}to{width:72%}}
+
+/* PROFILE ROW */
+.profile-row{
+  display:flex;align-items:flex-end;gap:12px;
+  padding:0 18px;margin-top:-42px;margin-bottom:14px;
+}
+.avatar-wrap{position:relative;flex-shrink:0;}
+.avatar{
+  width:80px;height:80px;border-radius:50%;
+  border:3px solid var(--bg2);background:var(--pink);
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+}
+.avatar svg{width:80px;height:80px;}
+.online-dot{
+  position:absolute;bottom:4px;right:3px;
+  width:12px;height:12px;background:#4ade80;
+  border-radius:50%;border:2px solid var(--bg2);
+}
+.name-block{padding-bottom:4px;flex:1;}
+.name-block h1{font-size:1.25rem;font-weight:700;color:var(--text);line-height:1.1;}
+.handle{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--muted);margin-top:2px;}
+.follow-btn{
+  margin-bottom:6px;padding:5px 14px;border-radius:999px;
+  border:1.5px solid var(--red);background:transparent;
+  color:var(--red);font-family:'Space Grotesk',sans-serif;
+  font-size:0.76rem;font-weight:600;cursor:pointer;
+  transition:background .15s,color .15s;
+  flex-shrink:0;align-self:flex-end;
+}
+.follow-btn:hover{background:var(--red);color:#fff;}
+
+/* BODY */
+.body{padding:0 18px 20px;}
+
+.stat-row{display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap;}
+.stat{
+  background:var(--red-dim);border:1px solid var(--red-border);
+  border-radius:8px;padding:5px 11px;
+  font-size:0.73rem;font-weight:600;color:var(--red);
+}
+
+.bio{font-size:0.86rem;color:var(--muted);line-height:1.65;margin-bottom:14px;}
+.bio strong{color:var(--text);font-weight:600;}
+
+.social-row{display:flex;gap:7px;margin-bottom:18px;}
+.soc-btn{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--bg3);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:0.82rem;color:var(--muted);
+  font-weight:700;transition:background .15s,color .15s,border-color .15s;
+}
+.soc-btn:hover{background:var(--red-dim);color:var(--red);border-color:var(--red-border);}
+
+hr.div{border:none;border-top:1px solid var(--border);margin:14px 0;}
+
+/* BYF / DFI */
+.bdf-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
+.bdf-box{
+  background:var(--bg3);border-radius:12px;
+  border:1px solid var(--border);padding:11px 13px;
+}
+.bdf-box h3{
+  font-family:'Space Mono',monospace;font-size:0.68rem;
+  font-weight:700;letter-spacing:0.5px;color:var(--red);margin-bottom:6px;
+}
+.bdf-box p{font-size:0.76rem;color:var(--muted);line-height:1.6;}
+
+/* PLAYER */
+.player{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:12px;padding:11px 14px;
+  display:flex;align-items:center;gap:11px;margin-bottom:14px;
+}
+.player-art{
+  width:36px;height:36px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,#c0392b,#f2c4c0);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+}
+.player-info{flex:1;min-width:0;}
+.track{font-size:0.8rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.artist{font-size:0.7rem;color:var(--muted);}
+.play-btn{
+  width:30px;height:30px;border-radius:50%;background:var(--red);
+  border:none;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .1s;
+}
+.play-btn:hover{transform:scale(1.08);}
+.play-btn svg{width:11px;height:11px;fill:#fff;margin-left:2px;}
+
+/* INTERESTS */
+.int-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.int-box{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:12px;padding:11px 13px;
+}
+.int-box h3{
+  font-family:'Space Mono',monospace;font-size:0.68rem;
+  font-weight:700;color:var(--red);margin-bottom:7px;letter-spacing:0.5px;
+}
+.tags{display:flex;flex-wrap:wrap;gap:5px;}
+.tag{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:6px;padding:3px 8px;
+  font-size:0.68rem;font-weight:500;color:var(--muted);
+}
+.tag.hi{
+  background:var(--red-dim);border-color:var(--red-border);color:var(--red);
+}
+</style>
 </head>
-<body style="background-color: #121212; color: #ff66b2; font-family: Arial, sans-serif; text-align: center; margin-top: 100px;">
+<body>
+<div class="card">
 
-  <h1>Hello, I'm Faria Hassan 👋</h1>
-  
-  <p style="color: #ffb3d9;">I am a beginner learning Python and making silly games as a hobby.</p>
-  
-  <br>
+  <div class="banner">
+    <div class="level-badge">LVL 07 ★</div>
+    <div class="xp-wrap"><div class="xp-fill"></div></div>
+  </div>
 
-  <h2>🎮 My Projects</h2>
-  <p>Game 1: Coming Soon!</p>
+  <div class="profile-row">
+    <div class="avatar-wrap">
+      <div class="avatar">
+        <!-- Original Anya-inspired SVG illustration -->
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="40" fill="#f9dede"/>
+          <!-- hair back mass -->
+          <ellipse cx="40" cy="30" rx="26" ry="23" fill="#b85878"/>
+          <!-- side hair -->
+          <ellipse cx="15" cy="35" rx="7" ry="12" fill="#b85878"/>
+          <ellipse cx="65" cy="35" rx="7" ry="12" fill="#b85878"/>
+          <!-- face -->
+          <ellipse cx="40" cy="46" rx="20" ry="21" fill="#fcd5b5"/>
+          <!-- ears -->
+          <ellipse cx="20" cy="47" rx="3.5" ry="4.5" fill="#fcd5b5"/>
+          <ellipse cx="60" cy="47" rx="3.5" ry="4.5" fill="#fcd5b5"/>
+          <!-- hair front / bangs -->
+          <ellipse cx="40" cy="24" rx="22" ry="11" fill="#b85878"/>
+          <path d="M18 28 Q23 17 33 22 Q40 15 47 22 Q57 17 62 28 Q54 23 40 24 Q26 23 18 28Z" fill="#b85878"/>
+          <!-- iconic hair horns/bumps -->
+          <ellipse cx="19" cy="19" rx="8" ry="9" fill="#b85878"/>
+          <ellipse cx="61" cy="19" rx="8" ry="9" fill="#b85878"/>
+          <!-- whites of eyes -->
+          <ellipse cx="31" cy="45" rx="6" ry="6" fill="#fff"/>
+          <ellipse cx="49" cy="45" rx="6" ry="6" fill="#fff"/>
+          <!-- irises -->
+          <circle cx="31" cy="45" r="4" fill="#4a8050"/>
+          <circle cx="49" cy="45" r="4" fill="#4a8050"/>
+          <!-- pupils -->
+          <circle cx="31" cy="45" r="2.2" fill="#1a3020"/>
+          <circle cx="49" cy="45" r="2.2" fill="#1a3020"/>
+          <!-- eye shine -->
+          <circle cx="32.5" cy="43.5" r="1.1" fill="#fff"/>
+          <circle cx="50.5" cy="43.5" r="1.1" fill="#fff"/>
+          <!-- rosy cheeks -->
+          <ellipse cx="23" cy="52" rx="5" ry="2.8" fill="#f0a0a0" opacity="0.45"/>
+          <ellipse cx="57" cy="52" rx="5" ry="2.8" fill="#f0a0a0" opacity="0.45"/>
+          <!-- heh smile -->
+          <path d="M33 57 Q40 63 47 57" stroke="#c06060" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="online-dot"></div>
+    </div>
+    <div class="name-block">
+      <h1>su !</h1>
+      <div class="handle">@lvjnsl</div>
+    </div>
+    <button class="follow-btn">following</button>
+  </div>
 
-  <br>
+  <div class="body">
 
-  <h2>🔗 Find me online</h2>
-  <p>
-    <a href="https://www.linkedin.com/in/fariaboo" style="color: #ff66b2; text-decoration: none;">LinkedIn</a> | 
-    <a href="https://www.instagram.com/fariabooo" style="color: #ff66b2; text-decoration: none;">Instagram</a> |
-    <a href="https://github.com/FariaBoo" style="color: #ff66b2; text-decoration: none;">GitHub</a>
-  </p>
+    <div class="stat-row">
+      <div class="stat">♥ she/her</div>
+      <div class="stat">🌐 ES · EN</div>
+      <div class="stat">🎬 tutorials</div>
+    </div>
 
+    <p class="bio">i make <strong>carrd tutorials</strong> on youtube (lvjnsl). sunny days, spring &amp; flowers, doggies person ✿</p>
+
+    <div class="social-row">
+      <a href="#" class="soc-btn" title="YouTube">▶</a>
+      <a href="#" class="soc-btn" title="Twitter">𝕏</a>
+      <a href="#" class="soc-btn" title="Pinterest">P</a>
+    </div>
+
+    <hr class="div"/>
+
+    <div class="bdf-grid">
+      <div class="bdf-box">
+        <h3>★ byf</h3>
+        <p>not very active on twitter but i'll try to answer dms asap. sometimes i spam w/ tutorials</p>
+      </div>
+      <div class="bdf-box">
+        <h3>★ dfi</h3>
+        <p>common dni criteria (ableist, racist, homophobic…) rude to people or insensitive jokes</p>
+      </div>
+    </div>
+
+    <div class="player">
+      <div class="player-art">♪</div>
+      <div class="player-info">
+        <div class="track">OPTIONS</div>
+        <div class="artist">TWICE — THIS IS FOR</div>
+      </div>
+      <button class="play-btn">
+        <svg viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg>
+      </button>
+    </div>
+
+    <hr class="div"/>
+
+    <div class="int-grid">
+      <div class="int-box">
+        <h3>★ kpop</h3>
+        <div class="tags">
+          <span class="tag hi">twice</span>
+          <span class="tag">dahyun</span>
+          <span class="tag">itzy</span>
+          <span class="tag">fromis_9</span>
+          <span class="tag">lesserafim</span>
+        </div>
+      </div>
+      <div class="int-box">
+        <h3>games ★</h3>
+        <div class="tags">
+          <span class="tag">overwatch</span>
+          <span class="tag hi">rivals</span>
+          <span class="tag hi">valorant</span>
+          <span class="tag hi">genshin</span>
+        </div>
+      </div>
+      <div class="int-box" style="grid-column:1/-1">
+        <h3>★ other</h3>
+        <div class="tags">
+          <span class="tag hi">spy x family</span>
+          <span class="tag">atla</span>
+          <span class="tag">clairo</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 </body>
 </html>
